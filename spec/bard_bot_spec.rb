@@ -31,8 +31,18 @@ describe BardBot do
   describe '#generate_sentence' do
     it 'generates a sentence from the dictionary' do
       BardBot.config.character = :foo
+      BardBot.dictionaries { |d| d[:foo] = double('fake_dictionary') }
       expect(BardBot.dictionaries[:foo]).to receive(:generate_sentence).and_return('bar')
       expect(BardBot.generate_sentence).to eq 'bar'
+    end
+  end
+
+  describe '#generate_x_sentences' do
+    it 'generates x sentences from the dictionary' do
+      BardBot.config.character = :foo
+      BardBot.dictionaries { |d| d[:foo] = double('fake_dictionary') }
+      expect(BardBot.dictionaries[:foo]).to receive(:generate_sentence).and_return('foo', 'bar', 'baz')
+      expect(BardBot.generate_3_sentences).to eq 'foo bar baz'
     end
   end
 
