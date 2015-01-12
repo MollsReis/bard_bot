@@ -11,6 +11,8 @@ $FIELD_SEPARATOR = ' '
 $OUTPUT_FIELD_SEPARATOR = ' '
 
 module BardBot
+  VERSION = '1.0.0'
+
   class << self
     def config
       @config ||= Config.new

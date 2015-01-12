@@ -33,5 +33,5 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  rspec
+  rspec (~> 3.1.0)
   rubocop
