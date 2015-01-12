@@ -1,3 +1,8 @@
+# BardBot
+# Author::    R. Scott Reis  (https://github.com/EvilScott)
+# Copyright:: Copyright (c) 2014 R. Scott Reis
+# License::   MIT (http://opensource.org/licenses/MIT)
+
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), 'bard_bot'))
 %w( config dictionary ).each { |klass| require klass }
 
