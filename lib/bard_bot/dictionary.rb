@@ -7,12 +7,7 @@ module BardBot
     end
 
     def load_corpus!
-      if @config.character_directory == :default
-        directory = File.join(File.dirname(__FILE__), '..', '..', 'data')
-      else
-        directory = @config.character_directory
-      end
-      file_path = File.join(File.split(directory) << @config.character.to_s + '.txt')
+      file_path = File.join(@config.character_directory, @config.character.to_s + '.txt')
       corpus = File.read(file_path).split
       prefix = @config.prefix.to_i
       @dictionary = Hash.new { |h,k| h[k] = [] }

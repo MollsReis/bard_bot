@@ -28,6 +28,14 @@ describe BardBot do
     end
   end
 
+  describe '#clear_dictionaries!' do
+    it 'removes existing dictionaries' do
+      BardBot.dictionaries { |d| d[:foo] = :bar }
+      BardBot.clear_dictionaries!
+      expect(BardBot.dictionaries.empty?).to be_truthy
+    end
+  end
+
   describe '#generate_sentence' do
     it 'generates a sentence from the dictionary' do
       BardBot.config.character = :foo
@@ -43,6 +51,13 @@ describe BardBot do
       BardBot.dictionaries { |d| d[:foo] = double('fake_dictionary') }
       expect(BardBot.dictionaries[:foo]).to receive(:generate_sentence).and_return('foo', 'bar', 'baz')
       expect(BardBot.generate_3_sentences).to eq 'foo bar baz'
+    end
+  end
+
+  describe '#characters' do
+    it 'lists available characters' do
+      expect(BardBot.characters).to be_an_instance_of Array
+      expect(BardBot.characters.length).to eq 9
     end
   end
 

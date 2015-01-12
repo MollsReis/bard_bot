@@ -16,14 +16,24 @@ module BardBot
 
     def dictionaries
       @dictionaries ||= Hash.new do |h,char|
-        h[char] = Dictionary.new(config.character)
+        h[char] = Dictionary.new(config)
       end
       yield @dictionaries if block_given?
       @dictionaries
     end
 
+    def clear_dictionaries!
+      @dictionaries.clear
+    end
+
     def generate_sentence
       dictionaries[config.character].generate_sentence
+    end
+
+    def characters
+      Dir[config.character_directory + '/*.txt'].map do |char|
+        char.split(File::SEPARATOR).last.sub('.txt', '').to_sym
+      end
     end
 
     def method_missing(meth)
