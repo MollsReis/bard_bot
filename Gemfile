@@ -1,2 +1,2 @@
 source 'https://rubygems.org'
-gem 'rspec', '~>3.1.0', group: :test
+gem 'rspec', '~>3.1', group: :test
