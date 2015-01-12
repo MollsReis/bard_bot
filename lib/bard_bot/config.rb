@@ -1,7 +1,7 @@
 module BardBot
   class Config
-    attr_accessor :character, :prefix, :max_length
-    attr_writer :character_dir
+    attr_accessor :prefix, :max_length
+    attr_writer :character, :character_dir
 
     def initialize
       @character = :hamlet
@@ -15,6 +15,11 @@ module BardBot
         return File.join(File.dirname(__FILE__), '..', '..', 'data')
       end
       @character_dir
+    end
+
+    def character
+      return BardBot.characters.sample if @character == :random
+      @character
     end
   end
 end

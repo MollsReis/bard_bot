@@ -19,9 +19,22 @@ module BardBot
         expect(character_dir).to eq %w( .. .. data )
       end
 
-      it 'returns the specified charcter directory' do
+      it 'returns the specified character directory' do
         config.character_dir = '/foo/bar'
         expect(config.character_dir).to eq '/foo/bar'
+      end
+    end
+
+    describe '#character' do
+      it 'returns the specified character' do
+        config.instance_variable_set(:@character, :foo)
+        expect(config.character).to eq :foo
+      end
+
+      it 'returns a random character' do
+        expect(BardBot).to receive(:characters).and_return([:bar])
+        config.instance_variable_set(:@character, :random)
+        expect(config.character).to eq :bar
       end
     end
   end
