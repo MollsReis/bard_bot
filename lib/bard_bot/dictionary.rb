@@ -1,17 +1,24 @@
 module BardBot
   class Dictionary
 
-    def initialize(character)
-      @character = character
+    def initialize(config)
+      @config = config
       load_corpus!
     end
 
     def load_corpus!
-      @dictionary = Hash.new { |h,k| h[k] = [] }
-      file_path = File.join(File.dirname(__FILE__), '..', '..', 'data', @character.to_s + '.txt')
+      if @config.character_directory == :default
+        directory = File.join(File.dirname(__FILE__), '..', '..', 'data')
+      else
+        directory = @config.character_directory
+      end
+      file_path = File.join(File.split(directory) << @config.character.to_s + '.txt')
       corpus = File.read(file_path).split
-      until corpus.length < 3
-        @dictionary["#{corpus[0]} #{corpus[1]}"] << corpus[2]
+      prefix = @config.prefix.to_i
+      @dictionary = Hash.new { |h,k| h[k] = [] }
+      until corpus.length < (prefix + 1)
+        key = corpus.first(prefix).join
+        @dictionary[key] << corpus[prefix]
         corpus.shift
       end
     end
@@ -19,7 +26,7 @@ module BardBot
     def generate_sentence
       tuple = @dictionary.keys.sample
       sentence = tuple
-      100.times do
+      @config.max_length.times do
         sentence += ' ' + @dictionary[tuple].sample
         break if %w[? ! .].include?(sentence[-1])
         tuple = sentence.split.last(2).join
