@@ -1,19 +1,20 @@
 module BardBot
   class Config
     attr_accessor :character, :prefix, :max_length
-    attr_writer :character_directory
+    attr_writer :character_dir
 
     def initialize
       @character = :hamlet
       @prefix = 2
       @max_length = 100
-      @character_directory = :default
+      @character_dir = :default
     end
 
-    def character_directory
-      return File.join(File.dirname(__FILE__), '..', '..', 'data') if @character_directory == :default
-      @character_directory
+    def character_dir
+      if @character_dir == :default
+        return File.join(File.dirname(__FILE__), '..', '..', 'data')
+      end
+      @character_dir
     end
-
   end
 end

@@ -1,5 +1,5 @@
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), 'bard_bot'))
-%w[config dictionary].each { |klass| require klass }
+%w( config dictionary ).each { |klass| require klass }
 
 require 'english'
 $FIELD_SEPARATOR = ' '
@@ -7,7 +7,6 @@ $OUTPUT_FIELD_SEPARATOR = ' '
 
 module BardBot
   class << self
-
     def config
       @config ||= Config.new
       yield @config if block_given?
@@ -15,7 +14,7 @@ module BardBot
     end
 
     def dictionaries
-      @dictionaries ||= Hash.new do |h,char|
+      @dictionaries ||= Hash.new do |h, char|
         h[char] = Dictionary.new(config)
       end
       yield @dictionaries if block_given?
@@ -31,17 +30,16 @@ module BardBot
     end
 
     def characters
-      Dir[config.character_directory + '/*.txt'].map do |char|
+      Dir[config.character_dir + '/*.txt'].map do |char|
         char.split(File::SEPARATOR).last.sub('.txt', '').to_sym
       end
     end
 
     def method_missing(meth)
-      if meth.match /^generate_(\d+)_sentences$/
-        return Array.new.fill(0...$1.to_i) { generate_sentence }.join
+      if /^generate_(?<num>\d+)_sentences$/ =~ meth.to_s
+        return Array.new.fill(0...num.to_i) { generate_sentence }.join
       end
       super
     end
-
   end
 end

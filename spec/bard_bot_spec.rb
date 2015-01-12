@@ -1,9 +1,8 @@
 require 'spec_helper'
 
 describe BardBot do
-
   after(:each) do
-    BardBot.dictionaries { |d| d.clear }
+    BardBot.dictionaries(&:clear)
   end
 
   describe '#config' do
@@ -40,7 +39,8 @@ describe BardBot do
     it 'generates a sentence from the dictionary' do
       BardBot.config.character = :foo
       BardBot.dictionaries { |d| d[:foo] = double('fake_dictionary') }
-      expect(BardBot.dictionaries[:foo]).to receive(:generate_sentence).and_return('bar')
+      expect(BardBot.dictionaries[:foo])
+        .to receive(:generate_sentence).and_return('bar')
       expect(BardBot.generate_sentence).to eq 'bar'
     end
   end
@@ -49,7 +49,8 @@ describe BardBot do
     it 'generates x sentences from the dictionary' do
       BardBot.config.character = :foo
       BardBot.dictionaries { |d| d[:foo] = double('fake_dictionary') }
-      expect(BardBot.dictionaries[:foo]).to receive(:generate_sentence).and_return('foo', 'bar', 'baz')
+      expect(BardBot.dictionaries[:foo])
+        .to receive(:generate_sentence).and_return('foo', 'bar', 'baz')
       expect(BardBot.generate_3_sentences).to eq 'foo bar baz'
     end
   end
@@ -60,5 +61,4 @@ describe BardBot do
       expect(BardBot.characters.length).to eq 9
     end
   end
-
 end
