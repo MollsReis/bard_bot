@@ -1,5 +1,10 @@
 ## Bard Bot -- Shakespearean Markov
 
+Installation:
+```bash
+$ gem install bard_bot
+```
+
 Usage:
 ```ruby
 require 'bard_bot'
