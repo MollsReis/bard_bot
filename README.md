@@ -1,4 +1,4 @@
-## Bard Bot -- Shakespearean Markov
+## Bard Bot -- Shakespearean Markov [![Build Status](https://travis-ci.org/EvilScott/bard_bot.svg?branch=next)](https://travis-ci.org/EvilScott/bard_bot)
 
 Installation:
 ```bash
