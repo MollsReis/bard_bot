@@ -1,2 +1,5 @@
 source 'https://rubygems.org'
-gem 'rspec', '~>3.1', group: :test
+group :test do
+  gem 'rake'
+  gem 'rspec', '~>3.1'
+end
