@@ -6,7 +6,7 @@
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), 'bard_bot'))
 %w( config dictionary ).each { |klass| require klass }
 
-require 'english'
+require 'English'
 $FIELD_SEPARATOR = ' '
 $OUTPUT_FIELD_SEPARATOR = ' '
 
